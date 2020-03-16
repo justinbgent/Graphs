@@ -100,10 +100,13 @@ class Graph:
         # Create a queue
         q = Queue()
         # Enqueue A PATH TO the starting vertex
-        
+        q.enqueue([starting_vertex])
         # Create a set to store visited vertices
+        visited = set()
         # While the queue is not empty...
+        while q.size() > 0:
             # Dequeue the first PATH
+            path = q.dequeue()
             # GRAB THE VERTEX FROM THE END OF THE PATH
             # Check if it's been visited
             # If it hasn't been visited...
@@ -113,7 +116,14 @@ class Graph:
                 # Enqueue A PATH TO all it's neighbors
                     # MAKE A COPY OF THE PATH
                     # ENQUEUE THE COPY
-        pass  # TODO
+            if path[-1] not in visited:
+                visited.add(path[-1])
+                if path[-1] == destination_vertex:
+                    return path
+                for neighbor in self.get_neighbors(path[-1]):
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    q.enqueue(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -121,7 +131,24 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        s = Stack()
+
+        s.push([starting_vertex])
+
+        visited = set()
+
+        while s.size() > 0:
+            p = s.pop()
+
+            if p[-1] not in visited:
+                if p[-1] == destination_vertex:
+                    return p
+                visited.add(p[-1])
+
+                for neighbor in self.get_neighbors(p[-1]):
+                    new_path = list(p)
+                    new_path.append(neighbor)
+                    s.push(new_path)
 
     def dfs_recursive(self, starting_vertex):
         """
