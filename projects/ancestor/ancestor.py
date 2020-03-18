@@ -15,6 +15,7 @@ def earliest_ancestor(ancestors, starting_node):
         graphChildToParent.add_edge(relationship[childIndex], relationship[parentIndex])
 
     return graphChildToParent.bftFindFarthest(starting_node)
+
     #earliest = graphChildToParent.bftFindFarthest(starting_node)
 
     #if earliest == starting_node:
